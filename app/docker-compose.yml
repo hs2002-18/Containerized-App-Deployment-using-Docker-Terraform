@@ -1,28 +1,32 @@
 version: "3.8"
+
 services:
   mongodb:
     image: mongo
     container_name: mongo_db
     volumes:
       - mongo-data:/data/db
+
   backend:
-    build: ./backend
+    image: ghcr.io/harshshrimali319/backend:latest
     container_name: backend
     ports:
       - "5000:5000"
     depends_on:
       - mongodb
+
   frontend:
-    build: ./frontend
+    image: ghcr.io/harshshrimali319/frontend:latest
     container_name: frontend
-    
+
   nginx:
-    build: ./nginx
+    image: ghcr.io/harshshrimali319/nginx:latest
     container_name: nginx
     ports:
       - "80:80"
     depends_on:
       - backend
       - frontend
+
 volumes:
   mongo-data:
