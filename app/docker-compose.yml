@@ -8,7 +8,7 @@ services:
       - mongo-data:/data/db
 
   backend:
-    image: ghcr.io/harshshrimali319/backend:latest
+    image: harshshrimali319/backend:latest
     container_name: backend
     ports:
       - "5000:5000"
@@ -16,11 +16,11 @@ services:
       - mongodb
 
   frontend:
-    image: ghcr.io/harshshrimali319/frontend:latest
+    image: harshshrimali319/frontend:latest
     container_name: frontend
 
   nginx:
-    image: ghcr.io/harshshrimali319/nginx:latest
+    image: harshshrimali319/nginx:latest
     container_name: nginx
     ports:
       - "80:80"
