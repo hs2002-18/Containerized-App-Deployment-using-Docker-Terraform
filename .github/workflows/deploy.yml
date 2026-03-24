@@ -11,43 +11,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Login to GHCR
-      run: echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u ${{ secrets.GHCR_USERNAME }} --password-stdin
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Backend
-      run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/backend:latest ./app/backend
+    - name: Build & Push Backend
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:latest ./app/backend
+        docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
-    - name: Build Frontend
-      run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/frontend:latest ./app/frontend
+    - name: Build & Push Frontend
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend:latest ./app/frontend
+        docker push ${{ secrets.DOCKER_USERNAME }}/frontend:latest
 
-    - name: Build Nginx
-      run: docker build -t ghcr.io/${{ secrets.GHCR_USERNAME }}/nginx:latest ./app/nginx
-
-    - name: Push Backend
-      run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/backend:latest
-
-    - name: Push Frontend
-      run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/frontend:latest
-
-    - name: Push Nginx
-      run: docker push ghcr.io/${{ secrets.GHCR_USERNAME }}/nginx:latest
+    - name: Build & Push Nginx
+      run: |
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx:latest ./app/nginx
+        docker push ${{ secrets.DOCKER_USERNAME }}/nginx:latest
 
   deploy:
     needs: build-and-push
     runs-on: ubuntu-latest
 
     steps:
-    - name: Deploy to EC2
+
+    - name: SSH into EC2 and Deploy
       uses: appleboy/ssh-action@v0.1.6
       with:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_KEY }}
         script: |
-          cd project/app
+          cd project
+          git pull
           docker-compose down
           docker-compose pull
           docker-compose up -d
