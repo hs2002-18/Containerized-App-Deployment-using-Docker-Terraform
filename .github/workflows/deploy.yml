@@ -49,7 +49,12 @@ jobs:
         username: ${{ secrets.EC2_USER }}
         key: ${{ secrets.EC2_KEY }}
         script: |
-          cd /app
+          cd /home/ubuntu
+          if [ ! -d  "Containerized-App-Deployment-using-Docker-Terraform"]:
+          then
+            git clone https://github.com/hs2002-18/Containerized-App-Deployment-using-Docker-Terraform.git
+          fi
+          cd Containerized-App-Deployment-using-Docker-Terraform/app
           git pull
           docker-compose down
           docker-compose pull
