@@ -170,37 +170,15 @@ The `deploy.sh` script automates the core deployment steps. For more granular co
     ```
     **Use with caution**: This will permanently delete all resources created by Terraform.
 
-## 🤝 Contributing
+## 🔮 Future Developments
 
 Contributions are welcome! If you have suggestions for improving this deployment example, please feel free to:
 
-1.  Fork the repository.
-2.  Create a new branch (`git checkout -b feature/AmazingFeature`).
-3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4.  Push to the branch (`git push origin feature/AmazingFeature`).
-5.  Open a Pull Request.
+1.  FMulti‑Environment Support.
+2.  Container Orchestration.
+3.  Monitoring & Logging.
+4.  Scaling & Load Balancing
 
-## 📄 License
-
-This project is licensed under an **Unspecified** license. Please refer to the repository owner for more details.
-
-## 🙏 Acknowledgments
-
--   **Docker**: For simplifying application containerization.
--   **Terraform**: For powerful Infrastructure as Code capabilities.
--   **AWS**: For robust cloud computing services.
-
-## 📞 Support & Contact
-
--   🐛 Issues: [GitHub Issues](https://github.com/hs2002-18/Containerized-App-Deployment-using-Docker-Terraform/issues)
-
+## 📄 Author
+Harsh Shrimali
 ---
-
-<div align="center">
-
-**⭐ Star this repo if you find it helpful for your DevOps journey!**
-
-Made with ❤️ by [hs2002-18](https://github.com/hs2002-18)
-
-</div>
-
